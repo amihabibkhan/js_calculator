@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="calculator">
+        <div id="output">
+            <div id="first_number">0</div>
+            <div style="border-bottom: 1px solid black"><span id="chinno"></span><span id="second_number">0</span></div>
+            <div id="result">0</div>
+        </div>
+        <div class="single_row">
+            <table>
+                <tr>
+                    <td onclick="allClear()">CE</td>
+                    <td onclick="writeNumber('/')">/</td>
+                    <td onclick="writeNumber('x')">x</td>
+                    <td onclick="writeNumber('-')">-</td>
+                </tr>
+                <tr>
+                    <td onclick="writeNumber(7)">7</td>
+                    <td onclick="writeNumber(8)">8</td>
+                    <td onclick="writeNumber(9)">9</td>
+                    <td rowspan="2" onclick="writeNumber('+')">+</td>
+                </tr>
+                <tr>
+                    <td onclick="writeNumber(4)">4</td>
+                    <td onclick="writeNumber(5)">5</td>
+                    <td onclick="writeNumber(6)">6</td>
+                </tr>
+                <tr>
+                    <td onclick="writeNumber(1)">1</td>
+                    <td onclick="writeNumber(2)">2</td>
+                    <td onclick="writeNumber(3)">3</td>
+                    <td rowspan="2" onclick="calculateTheNumbers()">=</td>
+                </tr>
+                <tr>
+                    <td colspan="2" onclick="writeNumber(0)">0</td>
+                    <td onclick="writeNumber('.')">.</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+
+    <script>
+        function allClear() {
+            document.getElementById('first_number').innerText = 0
+            document.getElementById('second_number').innerText = 0
+            document.getElementById('result').innerText = 0
+            document.getElementById('chinno').innerText = ''
+        }
+
+        function writeNumber(number) {
+            var chinno = document.getElementById('chinno').innerText
+
+            if (number == '+' || number == '-' || number == '/' || number == 'x'){
+                document.getElementById('chinno').innerText = number
+                return;
+            }
+
+            if (chinno == ''){
+                // input first number
+                var prev_value = document.getElementById('first_number').innerText
+                if (prev_value == 0){
+                    document.getElementById('first_number').innerText = number
+                }else{
+                    document.getElementById('first_number').innerText += number
+                }
+
+            }else{
+                // input second number
+                var prev_value = document.getElementById('second_number').innerText
+                if (prev_value == 0){
+                    document.getElementById('second_number').innerText = number
+                }else{
+                    document.getElementById('second_number').innerText += number
+                }
+            }
+        }
+
+        function calculateTheNumbers() {
+            var first_number = parseFloat(document.getElementById('first_number').innerText)
+            var second_number = parseFloat(document.getElementById('second_number').innerText)
+            var chinno = document.getElementById('chinno').innerText
+
+            var result = 0
+
+            switch (chinno) {
+                case '+':
+                    result = first_number + second_number
+                    break
+                case '-':
+                    result = first_number - second_number
+                    break
+                case '/':
+                    result = first_number / second_number
+                    break
+                case 'x':
+                    result = first_number * second_number
+                    break
+                default:
+                    result = 0
+            }
+
+            document.getElementById('result').innerText = result
+        }
+    </script>
+
+
+
+</body>
+</html>

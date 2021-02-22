@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JQuery</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+    <div class="counter">
+        <h2><span id="hour">0</span> : <span id="minute">0</span> : <span id="second">0</span></h2>
+        <button onclick="startWatch()" id="start_button">START</button>
+        <button id="stop_button" onclick="stopWatch()" style="background-color: rgba(75,37,178,0.79); display: none">PAUSE</button>
+        <button style="background-color: red" onclick="resetWatch()">RESET</button>
+    </div>
+
+<script>
+    var starting_point = null
+
+    function startWatch() {
+
+        // change button
+        document.getElementById(`stop_button`).style.display = `inline-block`
+        document.getElementById(`start_button`).style.display = `none`
+
+        starting_point = setInterval(function () {
+            var get_second = parseInt(document.getElementById(`second`).innerText)
+            var get_minute = parseInt(document.getElementById(`minute`).innerText)
+            var get_hour = parseInt(document.getElementById(`hour`).innerText)
+
+            if (get_second == 59){
+                document.getElementById(`second`).innerText = 0
+
+                if (get_minute == 59){
+                    document.getElementById(`minute`).innerText = 0
+
+                    document.getElementById(`hour`).innerText = get_hour + 1
+
+                    // if (get_hour == 12){
+                    //     document.getElementById(`hour`).innerText = 1
+                    // }
+
+                }else{
+                    document.getElementById(`minute`).innerText = get_minute + 1
+                }
+            }else{
+                document.getElementById(`second`).innerText = get_second + 1
+            }
+        }, 1000)
+    }
+
+    function stopWatch() {
+        document.getElementById(`stop_button`).style.display = `none`
+        document.getElementById(`start_button`).style.display = `inline-block`
+        clearInterval(starting_point)
+    }
+
+    function resetWatch() {
+        stopWatch()
+
+        document.getElementById(`second`).innerText = 0
+        document.getElementById(`minute`).innerText = 0
+        document.getElementById(`hour`).innerText = 0
+    }
+
+
+</script>
+
+
+
+
+
+</body>
+</html>
