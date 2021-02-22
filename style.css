@@ -1,3 +1,7 @@
+a, a:hover{
+    text-decoration: none;
+}
+
 .calculator{
     margin: 100px auto 0;
     border-radius: 5px;
@@ -31,6 +35,15 @@ table td{
 
 #chinno{
     margin-right: 10px;
+}
+.menu{
+    text-align: center;
+    padding-top: 30px;
+}
+.menu button{
+    padding: 10px 25px;
+    font-size: 20px;
+    text-transform: uppercase;
 }
 
 /*jquery css */
