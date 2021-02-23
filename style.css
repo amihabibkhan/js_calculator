@@ -2,6 +2,14 @@ a, a:hover{
     text-decoration: none;
 }
 
+input {
+    width: 100%;
+    padding: 15px;
+    border-radius: 5px;
+    outline: 0;
+    box-sizing: border-box;
+}
+
 .calculator{
     margin: 100px auto 0;
     border-radius: 5px;
@@ -68,4 +76,25 @@ table td{
     border: 0;
     outline: 0;
     cursor: pointer;
+}
+
+/* games page css */
+.games table{
+    width: 50%;
+    margin: 100px auto;
+}
+.games table td{
+    background-color: transparent;
+    padding: 25px;
+    text-align: left;
+}
+.games table td button{
+    font-size: 30px;
+    padding: 5px 15px;
+}
+
+#computer_number,
+#your_number{
+    color: #000;
+    font-size: 100px;
 }

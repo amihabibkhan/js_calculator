@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Games</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <audio id="win" src="audio/win.mp3"></audio>
+    <audio id="lose" src="audio/lose.mp3"></audio>
+
+
+    <div class="games">
+        <table>
+            <tr>
+                <td>
+                    <input type="text" id="inputed_value">
+                </td>
+                <td>
+                    <button onclick="submitMyNumber()">Submit Your Number</button>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2" id="message" style="visibility: hidden; text-align: center; background-color: green; font-size: 40px;"></td>
+            </tr>
+
+            <tr>
+                <td style="text-align: center">
+                    <span id="your_number"></span>
+                </td>
+                <td style="text-align: center">
+                    <span id="computer_number"></span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center">
+                    <button disabled id="play_button" onclick="playGame()">PLAY NOW</button>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+
+
+    <script>
+
+        function submitMyNumber() {
+            var inputed_number = document.getElementById('inputed_value').value
+            if (parseInt(inputed_number) >= 0 && parseInt(inputed_number) <= 10){
+                document.getElementById('your_number').innerText = inputed_number
+                document.getElementById('play_button').disabled = false
+            }
+        }
+        function playGame() {
+            var computer_guese = Math.random() * 10
+            var converted_number = Math.floor(computer_guese)
+            document.getElementById('computer_number').innerText = converted_number
+
+            // your guese
+            var your_guese = parseInt(document.getElementById('your_number').innerText)
+            var result = converted_number == your_guese
+            viewMessage(result)
+        }
+
+        function viewMessage(result) {
+            var message_container = document.getElementById('message')
+            message_container.style.visibility = 'visible'
+            if (result == true){
+                message_container.innerText = 'You won the Game!'
+                message_container.style.backgroundColor = 'green'
+                var audio = document.getElementById("win");
+                audio.play();
+            }else{
+                message_container.innerText = 'You lose the Game!'
+                message_container.style.backgroundColor = 'red'
+                var audio = document.getElementById("lose");
+                audio.play();
+            }
+        }
+
+
+
+
+
+    </script>
+
+</body>
+</html>
