@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+</head>
+<body>
+
+    <div class="card w-50 mt-5 m-auto">
+        <div class="card-header text-center">
+            <h2>Age Calculator for Checking Voter or Not Voter</h2>
+        </div>
+        <div class="card-body">
+            <div class="alert alert-danger d-none" id="error_output" role="alert">
+                Sorry! you have to input name and age.
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <input type="text" id="name" class="form-control" placeholder="Input Name">
+                </div>
+                <div class="col-6">
+                    <input type="text" id="age" class="form-control" placeholder="Input age">
+                </div>
+                <div class="col-12 pt-3 text-center">
+                    <button class="btn btn-success" onclick="showResult()">Calculate Age</button>
+                </div>
+            </div>
+            <div class="alert alert-primary mt-3 mb-0 text-center d-none" id="output" style="font-size: 30px;" role="alert"></div> 
+        </div>
+    </div> 
+
+    <script> 
+        
+        function showResult(){ 
+            var name = document.getElementById('name').value 
+            var age = document.getElementById('age').value
+
+            // if nothing inputed
+            if(name == '' || age == ''){
+                showErrorMessage() 
+                return 
+            } 
+            if(parseInt(age) >= 18){ 
+                showOutput(true, name, age)
+            }else{ 
+                showOutput(false, name, age)
+            } 
+
+            //var output = document.getElementById('output')
+            //if(parseInt(age) >= 18){
+                //output.classList.remove('d-none')
+                //output.innerText = name + ' is a Voter. His/her age is ' + age
+            //}else{
+                //output.classList.remove('d-none')
+                //output.innerText = name + ' is not a Voter. His/her age is ' + age
+            //} 
+        }
+
+
+        function showOutput(result, name, age){ 
+
+            var output = document.getElementById('output')
+            output.classList.remove('d-none')
+
+            if(result == true){
+                output.innerText = name + ' is a Voter. His/her age is ' + age
+            }else{
+                output.innerText = name + ' is not a Voter. His/her age is ' + age
+            }
+        }
+
+
+
+        function showErrorMessage(){
+            document.getElementById('error_output').classList.remove('d-none')
+            setTimeout(function(){
+                document.getElementById('error_output').classList.add('d-none')
+            }, 3000)
+        }
+
+
+
+    </script>
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script> 
+</body>
+</html>
