@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TO DO</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+    <style>
+        table tr td{
+            vertical-align: middle !important; 
+        } 
+        a{
+            text-decoration: none;
+        }
+        .menu{
+            text-align: center;
+            padding-top: 30px;
+        }
+        .menu button{
+            padding: 10px 25px;
+            font-size: 20px;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="menu">
+        <button ><a href="guesing_game.html">Game</a></button>
+        <button ><a href="index.html">Calculator</a></button>
+        <button ><a href="age.html">Age</a></button>
+        <button ><a href="StopWatch.html">StopWatch</a></button>
+    </div>
+
+    <div class="card w-50 mt-5 mx-auto">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-8 text-center">
+                    <h3>Simple ToDo List</h3>
+                </div>
+                <div class="col-md-4 text-right">
+                    <button  class="btn btn-success" data-toggle="modal" data-target="#addTask"><i class="fas fa-plus"></i> Add New</button> 
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="addTask" tabindex="-1" role="dialog" aria-labelledby="addTask" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content text-left">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Add a New Task</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                                <label >Task Title</label>
+                                <input type="text" placeholder="Write your task here" id="input_task" class="form-control">
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" onclick="addTask()" class="btn btn-primary" data-dismiss="modal">Add Task</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="table text-center table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th style="width: 10%">SL</th>
+                        <th>Title</th>
+                        <th style="width: 20%">Action</th>
+                    </tr> 
+                </thead>
+                <tbody id="tbody">
+                    
+                </tbody>
+            </table>
+            <div>
+                <div class="row">
+                    <div class="col-md-4"><button class="btn btn-success" onclick="doneAll()">Done All</button></div>
+                    <div class="col-md-4 text-center"><button class="btn btn-dark" onclick="unDoneAll()">Undone All</button></div>
+                    <div class="col-md-4 text-right"><button class="btn btn-danger" onclick="clearAll()">Clear All</button></div>
+                </div>
+            </div> 
+        </div>
+    </div>
+
+
+    <script>   
+        var get_all_data_from_localStorage = JSON.parse(localStorage.getItem('all_items'))
+        if(get_all_data_from_localStorage == null){
+            allData = []
+            localStorage.setItem('all_items', JSON.stringify(allData)) 
+        }else{
+            allData = JSON.parse(localStorage.getItem('all_items'))
+        }
+
+        function setData(){
+            localStorage.setItem('all_items', JSON.stringify(allData)) 
+        }
+
+
+        // done all function
+        function doneAll(){
+            var confirmation = confirm('Are you sure to complete all task?')
+            if(confirmation == false){
+                return
+            }
+
+            allData = allData.map((item) => { 
+                item.status = true
+                return item 
+            })
+ 
+
+            renderDataToString()
+
+        }
+
+        // undone all function
+        function unDoneAll(){
+            var confirmation = confirm('Are you sure to incomplete all task?')
+            if(confirmation == false){
+                return
+            }
+
+            allData = allData.map((item) => { 
+                item.status = false
+                return item 
+            }) 
+            renderDataToString()
+
+        } 
+
+        // clear all function
+        function clearAll(){
+            var confirmation = confirm('Are you sure delete all task?')
+            if(confirmation == false){
+                return
+            }
+
+            allData = [] 
+            
+            renderDataToString()
+
+        }
+
+
+  
+
+        // add task
+        function addTask(){
+            // get data from input field
+            var getData = document.getElementById('input_task').value 
+            
+            // push data to allData
+            allData.push({
+                id: Date.now(),
+                title: getData,
+                status: false
+            })
+
+            // render with new Data
+            renderDataToString()
+
+            // erase data from input field
+            document.getElementById('input_task').value  = ''
+        }
+
+        // remove item
+        function removeItem(id){
+            var confirmation = confirm('Are you sure to delete this?')
+            if(confirmation == false){
+                return
+            }
+            
+            allData = allData.filter((item) =>{
+                if(id != item.id){
+                    return item
+                }
+            })
+
+            renderDataToString()
+
+        }
+
+         // remove item
+         function updateItem(id){
+            var confirmation = confirm('Are you sure to udpate task status?')
+            if(confirmation == false){
+                return
+            }
+
+             
+            
+            allData = allData.map((item) => {
+
+                if(id == item.id){
+                    item.status = item.status ? false : true
+                    return item
+                }else{
+                    return item
+                }
+
+            })
+ 
+
+            renderDataToString()
+
+        }
+
+
+        // render function 
+        function renderDataToString(){
+            var myString = ''
+
+            for(var i = 0; i< allData.length; i ++){
+
+                var bg_class = ''
+                var icon = 'fa-check'
+
+                if(allData[i].status){
+                    bg_class = 'bg-warning'
+                    icon = 'fa-times'
+                }
+                
+                myString += '<tr class="'+ bg_class +'"> <td>' + (i + 1) + '</td>'+
+
+                    '<td>' + allData[i].title + '</td>'+
+
+                    '<td>'+
+                        '<button class="btn btn-dark mr-2" onclick="updateItem('+ allData[i].id +')"><i class="fas '+ icon +'"></i></button>'+
+                        '<button class="btn btn-danger" onclick="removeItem('+ allData[i].id +')"><i class="fas fa-trash"></i></button>'+
+                    '</td>'+
+
+                    '</tr>'
+                
+            }
+
+            document.getElementById('tbody').innerHTML = myString
+            setData()
+        }
+
+        renderDataToString()
+
+
+    </script>
+     
+
+
+
+
+
+      
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TO DO</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+</head>
+<body>
+
+    <script>
+        var myName = ['Ruhul Amin', 'Sakib', 25, 'Rahat']
+        myName.push('Minhaj')
+        myName.push('Arafat')
+
+        /* 
+        console.log(myName[0])
+        console.log(myName[1])
+        console.log(myName[2])
+        console.log(myName[3])
+        */
+ 
+
+        /* for(var i = 0; i < myName.length; i ++){
+            console.log(myName[i]) 
+        }
+        */ 
+
+        var students = [
+            {
+                id: 1,
+                name: 'Ruhul amin',
+                roll: 12,
+                gpa: '5.00'
+            },
+            {
+                id: 2,
+                name: 'Ruhul amin Na',
+                roll: 122,
+                gpa: '3.00'
+            },
+            {
+                id: 3,
+                name: 'Ruhul amin ha',
+                roll: 123,
+                gpa: '8.00'
+            }
+        ]
+        
+        students.push({
+            id: 4,
+            name: 'Saidul',
+            roll: 145,
+            gpa: '124.00'
+        })
+
+
+
+        /* students.map((item)=>{
+            if(item.id == 3){
+                item.name = 'habib khan'
+            } 
+        })
+        */
+
+        students = students.filter((item)=>{
+            if(item.id != 3){
+                return item
+            }
+        }) 
+        console.log(students) 
+    </script>
+
+
+
+      
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script> 
+</body>
+</html> 
